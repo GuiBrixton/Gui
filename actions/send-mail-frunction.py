@@ -15,14 +15,14 @@ cuerpo_html = body = """\
 <html>
 <head>
 <style>
-        .boton {
-            background-color: #089cff;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-    </style>
+  .boton {
+      background-color: #089cff;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+  }
+</style>
 </head>
 <body>
     <h1>Welcome</h1>
