@@ -1,0 +1,59 @@
+name: "Send email"
+
+
+on:
+  workflow_dispatch:
+
+
+   inputs:
+      from:
+        description: "The sender sending the e-mail"
+        required: true
+      to:
+        description: "The addressee who should receive the e-mail"
+        required: true
+      subj:
+        description: "Description Email"
+        required: true
+env:
+    FROM:   ${{ github.event.inputs.from }}
+    TO:     ${{ github.event.inputs.to }}
+    SUBJET: ${{ github.event.inputs.subj }}
+    TOKENGMAIL: ${{ secrets.PASS_GMAIL }}      
+
+
+jobs:
+  Send-email:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+   
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10.4'
+          cache: 'pip'
+
+
+      - name: Install dependency
+        run: |
+          pip install smtplib
+          pip install email
+           
+      - name: Send e-mail
+        working-directory: ./actions
+        run: |
+          python -u send-mail-frunction.py ${{ env.FROM}} ${{  env.TO }} ${{ env.SUBJET }}  ${{ secrets.TOKENGMAIL }}
+
+
+      - name:  Show result
+        if: steps.enviar_correo.outcome == 'success'
+        run: |
+          echo "Email sent successfully!"
+
+
+      - name: Show error
+        if: steps.enviar_correo.outcome == 'failure'
+        run: |
+          echo "Error sending e-mail."
