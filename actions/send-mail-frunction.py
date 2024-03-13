@@ -2,6 +2,7 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import sys
 
 # Created by: Agnaldo Cavaleiro (Rulis)
 # Fecha: 13/03/2024
@@ -21,7 +22,7 @@ def enviar_email(remitente, destinatario, asunto, cuerpo_html ):
     # Configurar el servidor SMTP
     smtp = smtplib.SMTP('smtp.gmail.com', 465)
     smtp.starttls()
-    smtp.login('terainntech@gmail.com', passgmail)
+    smtp.login('guistarcksoft@gmail.com', passgmail)
    
     # Crear mensagem de e-mail
     mensagem = MIMEMultipart()
@@ -53,3 +54,4 @@ if resultado:
   print("¡El correo electrónico se ha enviado correctamente!")
 else:
   print("Error al enviar el correo electrónico.")
+  sys.exit(1)
