@@ -46,3 +46,10 @@ def enviar_email(remitente, destinatario, asunto, cuerpo_html ):
   except Exception as e:
     print(f"Error sending email: {e}")
     return False
+  
+resultado = enviar_email(remitente, destinatario, asunto, cuerpo_html)
+
+if resultado:
+  print("¡El correo electrónico se ha enviado correctamente!")
+else:
+  print("Error al enviar el correo electrónico.")
