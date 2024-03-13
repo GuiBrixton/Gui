@@ -4,15 +4,32 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import sys
 
-# Created by: Agnaldo Cavaleiro (Rulis)
-# Fecha: 13/03/2024
-
+# Created by: Agnaldo Cavaleiro (gui)
+# Fecha: 13/03/2024 :)
 
 remitente    = os.environ["FROM"]
 destinatario = os.environ["TO"]
 asunto       = os.environ["SUBJET"]
 passgmail    = os.environ["TOKENGMAIL"]
-cuerpo_html = "<html><body><h1>Hello!</h1><p>This is an Email with HTML body.</p></body></html>"
+cuerpo_html = body = """\
+<html>
+<head>
+    <style>
+        .boton {
+            background-color: #089cff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido/a a SWPanel</h1>
+    <p><a href="https://swpanel.com" class="boton">Accede a tu SWPanel</a></p>
+</body>
+</html>
+"""
 
 
 def enviar_email(remitente, destinatario, asunto, cuerpo_html ):
@@ -33,7 +50,7 @@ def enviar_email(remitente, destinatario, asunto, cuerpo_html ):
 
 
     # Adicionar el cuerpo  e-mail
-    mensagem.attach(MIMEText(cuerpo_html, 'plain'))
+    mensagem.attach(MIMEText(cuerpo_html, 'html'))
 
 
     # Enviar e-mail
