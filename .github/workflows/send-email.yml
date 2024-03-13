@@ -37,6 +37,7 @@ jobs:
 
 
       - name: Send e-mail
+        id: enviar_correo
         working-directory: ./actions
         run: |
           python -u send-mail-frunction.py ${{ env.FROM}} ${{  env.TO }} ${{ env.SUBJET }}  ${{ secrets.TOKENGMAIL }}
