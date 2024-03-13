@@ -14,7 +14,7 @@ passgmail    = os.environ["TOKENGMAIL"]
 cuerpo_html = body = """\
 <html>
 <head>
-    <style>
+<style>
         .boton {
             background-color: #089cff;
             color: white;
@@ -25,12 +25,11 @@ cuerpo_html = body = """\
     </style>
 </head>
 <body>
-    <h1>Bienvenido/a a SWPanel</h1>
-    <p><a href="https://swpanel.com" class="boton">Accede a tu SWPanel</a></p>
+    <h1>Welcome</h1>
+    <p><a href="" class="boton">Click</a></p>
 </body>
 </html>
 """
-
 
 def enviar_email(remitente, destinatario, asunto, cuerpo_html ):
 
@@ -38,7 +37,7 @@ def enviar_email(remitente, destinatario, asunto, cuerpo_html ):
   try:
     # Configurar el servidor SMTP
     smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    #smtp.starttls()
+    smtp.starttls()
   
     smtp.login('guistarcksoft@gmail.com', passgmail)
    
@@ -48,7 +47,6 @@ def enviar_email(remitente, destinatario, asunto, cuerpo_html ):
     mensagem['To'] = destinatario
     mensagem['Subject'] = asunto
 
-
     # Adicionar el cuerpo  e-mail
     mensagem.attach(MIMEText(cuerpo_html, 'html'))
 
@@ -56,9 +54,6 @@ def enviar_email(remitente, destinatario, asunto, cuerpo_html ):
     # Enviar e-mail
     smtp.sendmail(remitente, destinatario, mensagem.as_string())
     smtp.quit()
-   
-    print(f"Sending e-mail from {remitente} to {destinatario} with the subject: {asunto}")
-    print(f"Body e-mail (HTML):\n{cuerpo_html}")
 
 
     return True
