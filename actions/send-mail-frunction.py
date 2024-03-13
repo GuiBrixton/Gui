@@ -21,7 +21,7 @@ def enviar_email(remitente, destinatario, asunto, cuerpo_html ):
     # Configurar el servidor SMTP
     smtp = smtplib.SMTP('smtp.gmail.com', 465)
     smtp.starttls()
-    smtp.login('terainntech@gmail.com', {passgmail})
+    smtp.login('terainntech@gmail.com', passgmail)
    
     # Crear mensagem de e-mail
     mensagem = MIMEMultipart()
