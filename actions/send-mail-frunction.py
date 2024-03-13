@@ -20,8 +20,9 @@ def enviar_email(remitente, destinatario, asunto, cuerpo_html ):
 
   try:
     # Configurar el servidor SMTP
-    smtp = smtplib.SMTP('smtp.gmail.com', 465)
-    smtp.starttls()
+    smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    #smtp.starttls()
+  
     smtp.login('guistarcksoft@gmail.com', passgmail)
    
     # Crear mensagem de e-mail
