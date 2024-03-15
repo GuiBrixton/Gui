@@ -1,1 +1,32 @@
+name: CI/CD
+on:
+ workflow_dispatch:
 
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Crear issue
+        id: create
+        run: |
+          # Tu comando para crear el issue aquí
+          echo "::set-output name=issue::valor_del_issue_generado"
+      - name: Guardar ISSUE_ID en archivo .env
+        run: echo "ISSUE_ID=${{ steps.create.outputs.issue }}" > .env
+
+  deploy_app:
+    needs: create_issue
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v2
+
+      # Aquí agregas los pasos para el despliegue de la aplicación
+
+      # Cargar variables desde el archivo .env
+      - name: Cargar variables del archivo .env
+        run: source .env
+
+      # Utilizar la variable ISSUE_ID
+      - name: Usar ISSUE_ID en el despliegue
+        run: echo "El ID del issue es $ISSUE_ID"
