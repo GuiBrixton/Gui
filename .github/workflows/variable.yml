@@ -15,6 +15,7 @@ jobs:
           cat app/.env  # Solo para verificar que se creó correctamente
 
   use_env_variables:
+    needs: create_env_file
     runs-on: ubuntu-latest
     steps:
       - name: Checkout del código
