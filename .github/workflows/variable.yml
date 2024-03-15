@@ -12,7 +12,7 @@ jobs:
       - name: Crear archivo .env
         run: |
           echo "ISSUE_ID=valor_del_issue_generado" > .env
-          cat app/.env  # Solo para verificar que se creó correctamente
+          cat  .env  # Solo para verificar que se creó correctamente
 
   use_env_variables:
     needs: create_env_file
