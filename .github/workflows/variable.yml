@@ -1,4 +1,4 @@
-name: Crear archivo .txt y usar valor
+name: Crear archivo y usar valor
 
 on:
   push:
@@ -11,9 +11,10 @@ jobs:
     steps:
       - name: Crear archivo .txt y guardar valor
         run: |
-          echo "ISSUE_VALUE=${{ steps.create.outputs.issue }}" > issue_value.txt
-          cat issue_value.txt  # Solo para verificar que se creó correctamente
+          echo "ISSUE_VALUE=${{ steps.create.outputs.issue }}" > $GITHUB_WORKSPACE/issue_value.txt
+          cat $GITHUB_WORKSPACE/issue_value.txt  # Verificar que se creó correctamente
         id: save_value
+        continue-on-error: true
 
   use_value:
     runs-on: ubuntu-latest
@@ -24,6 +25,7 @@ jobs:
 
       - name: Leer valor del archivo
         run: |
-          ISSUE_VALUE=$(<issue_value.txt)
+          ISSUE_VALUE=$(cat $GITHUB_WORKSPACE/issue_value.txt | grep -oP '(?<=ISSUE_VALUE=).*')
           echo "El valor de ISSUE_VALUE es $ISSUE_VALUE"
+
 
