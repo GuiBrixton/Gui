@@ -1,18 +1,29 @@
-name: CI/CD
+name: Crear archivo .env en ruta raíz de la carpeta app
+
 on:
- workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-  create_issue_and_save_to_env:
+  create_env_file:
     runs-on: ubuntu-latest
     steps:
-      - name: Crear issue y guardar su ID
-        id: create
+      - name: Crear archivo .env
         run: |
-          # Tu comando para crear el issue aquí
-          echo "::set-output name=issue::valor_del_issue_generado"
+          echo "ISSUE_ID=valor_del_issue_generado" > Gui/.env
+          cat app/.env  # Solo para verificar que se creó correctamente
 
-      - name: Guardar ISSUE_ID en archivo .env
+  use_env_variables:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v2
+
+      - name: Cargar variables del archivo .env
         run: |
-          echo "ISSUE_ID=${{ steps.create.outputs.issue }}" > .env
-          cat .env  # Solo para verificar que el archivo .env se ha creado correctamente
+          source app/.env
+
+      # Ejemplo de cómo utilizar las variables del archivo .env
+      - name: Mostrar el valor de ISSUE_ID
+        run: echo "El valor de ISSUE_ID es $ISSUE_ID"
