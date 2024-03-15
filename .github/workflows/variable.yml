@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Crear archivo .env
         run: |
-          echo "ISSUE_ID=valor_del_issue_generado" > ./ .env
+          echo "ISSUE_ID=valor_del_issue_generado" > .env
           cat app/.env  # Solo para verificar que se creó correctamente
 
   use_env_variables:
@@ -23,7 +23,7 @@ jobs:
 
       - name: Cargar variables del archivo .env
         run: |
-          source ./ .env
+          source  .env
 
       # Ejemplo de cómo utilizar las variables del archivo .env
       - name: Mostrar el valor de ISSUE_ID
