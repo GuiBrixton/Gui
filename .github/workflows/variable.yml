@@ -12,7 +12,7 @@ jobs:
           # Tu comando para crear el issue aquí
           echo "::set-output name=issue::valor_del_issue_generado"
       - name: Guardar ISSUE_ID en archivo .env
-        run: echo "ISSUE_ID=${{ steps.create.outputs.issue }}" >> .env
+        run: echo "ISSUE_ID=${{ steps.create.outputs.issue }}" > .env
 
   deploy_app:
     needs: create_issue
