@@ -1,4 +1,4 @@
-name: Crear archivo .env en ruta raíz de la carpeta app
+name: Crear archivo .txt y usar valor
 
 on:
   push:
@@ -6,25 +6,24 @@ on:
       - main
 
 jobs:
-  create_env_file:
+  create_file:
     runs-on: ubuntu-latest
     steps:
-      - name: Crear archivo .env
+      - name: Crear archivo .txt y guardar valor
         run: |
-          echo "ISSUE_ID=valor_del_issue_generado" > .env
-          cat  .env  # Solo para verificar que se creó correctamente
+          echo "ISSUE_VALUE=${{ steps.create.outputs.issue }}" > issue_value.txt
+          cat issue_value.txt  # Solo para verificar que se creó correctamente
+        id: save_value
 
-  use_env_variables:
-    needs: create_env_file
+  use_value:
     runs-on: ubuntu-latest
+    needs: create_file
     steps:
       - name: Checkout del código
         uses: actions/checkout@v2
 
-      - name: Cargar variables del archivo .env
+      - name: Leer valor del archivo
         run: |
-          source  .env
+          ISSUE_VALUE=$(<issue_value.txt)
+          echo "El valor de ISSUE_VALUE es $ISSUE_VALUE"
 
-      # Ejemplo de cómo utilizar las variables del archivo .env
-      - name: Mostrar el valor de ISSUE_ID
-        run: echo "El valor de ISSUE_ID es $ISSUE_ID"
