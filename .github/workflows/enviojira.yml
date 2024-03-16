@@ -1,4 +1,4 @@
-name: Crear archivo y usar valor
+name: Login Jira
 
 on:
  workflow_dispatch:
